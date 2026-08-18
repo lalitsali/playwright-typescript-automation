@@ -1,3 +1,4 @@
+
 # Playwright TypeScript Automation Framework
 
 A professional end-to-end test automation framework built using Playwright and TypeScript, following Page Object Model (POM), reusable test components, cross-browser testing, parallel execution, reporting, and CI/CD practices.
@@ -22,7 +23,11 @@ A professional end-to-end test automation framework built using Playwright and T
 - Video recording on test failure
 - Trace collection for debugging
 - GitHub Actions CI/CD
+## Project Overview
 
+![Playwright Automation Framework](./img.png)
+
+## Tech Stack
 ## Framework Structure
 
 ```text
@@ -181,4 +186,3 @@ Execute Playwright tests
 Generate test report
 
 
-![img alt](https://github.com/lalitsali/playwright-typescript-automation/blob/62ac07ce472f6a6c006d48f1e106ea04c3d61df1/img.png)
