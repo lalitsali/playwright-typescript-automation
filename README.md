@@ -179,3 +179,8 @@ Install Playwright browsers
 Execute Playwright tests
    ↓
 Generate test report
+
+
+https://github.com/lalitsali/playwright-typescript-automation/blob/f4973ed99933e79d94aa4d861cb3a731eacef2cb/img.png
+
+
