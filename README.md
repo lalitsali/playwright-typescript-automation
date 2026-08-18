@@ -181,4 +181,4 @@ Execute Playwright tests
 Generate test report
 
 
-![image alt](./img.png)
+![Playwright Automation Framework](./img.png)
