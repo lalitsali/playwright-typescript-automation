@@ -181,4 +181,4 @@ Execute Playwright tests
 Generate test report
 
 
-![Playwright Automation Framework](./img.png)
+![img alt](https://github.com/lalitsali/playwright-typescript-automation/blob/62ac07ce472f6a6c006d48f1e106ea04c3d61df1/img.png)
