@@ -2,7 +2,9 @@ export const productsLocators={
   settingsButton:"#react-burger-menu-btn",
   allitmsButton:"#inventory_sidebar_link",
   aboutButton:"#about_sidebar_link",
-  aboutPageRegi:".announcement-cta-text",
+  // aboutPageRegi:".announcement-cta-text",
+  aboutPageHeading:
+    'h1:has-text("Verify AI-generated code at the pace it\'s written.")',
   logoutButton:"#logout_sidebar_link",
   resetAppStateButton:"#reset_sidebar_link",
   

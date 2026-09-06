@@ -5,6 +5,25 @@ export class LoginPage {
 
     }
 
+
+    async login(UserName: string, Password: string) {
+
+        await this.page.fill(
+            loginLocators.usernameInput,
+            UserName
+        );
+
+        await this.page.fill(
+            loginLocators.passwordInput,
+            Password
+        );
+
+        await this.page.click(
+            loginLocators.loginButton
+        );
+    }
+
+
     async loginPage(UserName:string,Password:string)
     {
         await this.page.fill(loginLocators.usernameInput,UserName)

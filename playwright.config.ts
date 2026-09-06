@@ -1,158 +1,168 @@
-// import { defineConfig, devices } from '@playwright/test';
-// /**
-//  * Read environment variables from file.
-//  * https://github.com/motdotla/dotenv
-//  */
-// // import dotenv from 'dotenv';
-// // import path from 'path';
-// // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-// /**
-//  * See https://playwright.dev/docs/test-configuration.
-//  */
+// import { defineConfig, devices } from '@playwright/test';
+
+// const ENV = process.env.ENV || 'prod';
+
+// const ENV_URL = {
+//   dev: 'https://www.saucedemo.com/',
+//   qa: 'https://www.saucedemo.com/',
+//   stage: 'https://www.saucedemo.com/',
+//   prod: 'https://www.saucedemo.com/',
+// };
+
 // export default defineConfig({
 //   testDir: './tests',
-//   // testDir: '.',
-//   /* Run tests in files in parallel */
-//   fullyParallel: true,
-//   /* Fail the build on CI if you accidentally left test.only in the source code. */
-//   forbidOnly: !!process.env.CI,
-//   /* Retry on CI only */
-//   retries: process.env.CI ? 2 : 0,
-//   /* Opt out of parallel tests on CI. */
-//   workers: process.env.CI ? 1 : undefined,
-//   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-//     reporter: [['html', { outputFolder: './playwright-report', open: 'always' }]],
-//   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-//   use: {
-//     /* Base URL to use in actions like `await page.goto('')`. */
-//     // baseURL: 'http://localhost:3000',
 
-//     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-//     trace: 'on-first-retry',
+//   /* Run tests in parallel */
+//   fullyParallel: true,
+
+//   /* Prevent accidental test.only in CI */
+//   forbidOnly: !!process.env.CI,
+
+//   /* Retry failed tests on CI */
+//   retries: process.env.CI ? 2 : 0,
+
+//   /* Use one worker on CI, multiple locally */
+//   workers: process.env.CI ? 1 : undefined,
+
+//   /* Test execution timeout */
+//   timeout: 30 * 1000,
+
+//   /* Assertion timeout */
+//   expect: {
+//     timeout: 5000,
 //   },
 
-//   /* Configure projects for major browsers */
-//   projects: [
-//     {
-//       name: 'chromium',
-//       use: { ...devices['Desktop Chrome'] },
-//     },
-
-//     // {
-//     //   name: 'firefox',
-//     //   use: { ...devices['Desktop Firefox'] },
-//     // },
-
-//     // {
-//     //   name: 'webkit',
-//     //   use: { ...devices['Desktop Safari'] },
-//     // },
-
-//     /* Test against mobile viewports. */
-//     // {
-//     //   name: 'Mobile Chrome',
-//     //   use: { ...devices['Pixel 5'] },
-//     // },
-//     // {
-//     //   name: 'Mobile Safari',
-//     //   use: { ...devices['iPhone 12'] },
-//     // },
-
-//     /* Test against branded browsers. */
-//     // {
-//     //   name: 'Microsoft Edge',
-//     //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-//     // },
-//     // {
-//     //   name: 'Google Chrome',
-//     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-//     // },
+//   /* Reports */
+//   reporter: [
+//     ['list'],
+//     ['html', { outputFolder: 'playwright-report', open: 'never' }],
 //   ],
 
-//   /* Run your local dev server before starting the tests */
-//   // webServer: {
-//   //   command: 'npm run start',
-//   //   url: 'http://localhost:3000',
-//   //   reuseExistingServer: !process.env.CI,
-//   // },
+//   /* Shared settings */
+//   use: {
+//     baseURL: ENV_URL[ENV as keyof typeof ENV_URL],
+
+//     screenshot: 'only-on-failure',
+
+//     video: 'retain-on-failure',
+
+//     trace: 'retain-on-failure',
+
+//     actionTimeout: 10 * 1000,
+
+//     navigationTimeout: 30 * 1000,
+//   },
+
+//   /* Browser projects */
+//   projects: [
+//         {
+//             name: "setup",
+//             testMatch: /auth\.setup\.ts/,
+//         },
+
+//         {
+//             name: "chromium",
+//            use: {
+//     baseURL: "https://www.saucedemo.com",
+
+//     headless: true,
+
+//     storageState: "playwright/.auth/user.json",
+
+//     trace: "on-first-retry",
+// },
+//             dependencies: ["setup"],
+//         },
+//     ],
 // });
+
+
 import { defineConfig, devices } from '@playwright/test';
 
 const ENV = process.env.ENV || 'prod';
 
 const ENV_URL = {
-  dev: 'https://www.saucedemo.com/',
-  qa: 'https://www.saucedemo.com/',
-  stage: 'https://www.saucedemo.com/',
-  prod: 'https://www.saucedemo.com/',
+    dev: 'https://www.saucedemo.com/',
+    qa: 'https://www.saucedemo.com/',
+    stage: 'https://www.saucedemo.com/',
+    prod: 'https://www.saucedemo.com/',
 };
 
 export default defineConfig({
-  testDir: './tests',
 
-  /* Run tests in parallel */
-  fullyParallel: true,
+    testDir: './tests',
+globalSetup: require.resolve('./global-setup'),
+    // Run tests in parallel
+    fullyParallel: true,
 
-  /* Prevent accidental test.only in CI */
-  forbidOnly: !!process.env.CI,
+    // Prevent accidental test.only in CI
+    forbidOnly: !!process.env.CI,
 
-  /* Retry failed tests on CI */
-  retries: process.env.CI ? 2 : 0,
+    // Retry failed tests on CI
+    retries: process.env.CI ? 2 : 0,
 
-  /* Use one worker on CI, multiple locally */
-  workers: process.env.CI ? 1 : undefined,
+    // Use one worker on CI, multiple locally
+    workers: process.env.CI ? 1 : undefined,
 
-  /* Test execution timeout */
-  timeout: 30 * 1000,
+    // Test execution timeout
+    timeout: 30 * 1000,
 
-  /* Assertion timeout */
-  expect: {
-    timeout: 5000,
-  },
-
-  /* Reports */
-  reporter: [
-    ['list'],
-    ['html', { outputFolder: 'playwright-report', open: 'never' }],
-  ],
-
-  /* Shared settings */
-  use: {
-    baseURL: ENV_URL[ENV as keyof typeof ENV_URL],
-
-    screenshot: 'only-on-failure',
-
-    video: 'retain-on-failure',
-
-    trace: 'retain-on-failure',
-
-    actionTimeout: 10 * 1000,
-
-    navigationTimeout: 30 * 1000,
-  },
-
-  /* Browser projects */
-  projects: [
-    {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-      },
+    // Assertion timeout
+    expect: {
+        timeout: 5000,
     },
 
-    {
-      name: 'firefox',
-      use: {
-        ...devices['Desktop Firefox'],
-      },
+    // Reports
+    reporter: [
+        ['list'],
+        ['html', {
+            outputFolder: 'playwright-report',
+            open: 'never',
+        }],
+    ],
+
+    // Shared settings
+    use: {
+        baseURL: ENV_URL[ENV as keyof typeof ENV_URL],
+
+        screenshot: 'on',
+        video: 'on',
+        trace: 'on',
+
+        actionTimeout: 10 * 1000,
+        navigationTimeout: 30 * 1000,
+
+      storageState: 'playwright/.auth/user.json',
+
     },
 
-    {
-      name: 'webkit',
-      use: {
-        ...devices['Desktop Safari'],
-      },
-    },
-  ],
+    // Browser projects
+    projects: [
+
+       
+
+        // Actual tests
+        {
+            name: 'chromium',
+
+            use: {
+                ...devices['Desktop Chrome'],
+
+               // storageState: 'playwright/.auth/user.json',
+            },
+
+           // dependencies: ['setup'],
+        },
+
+           // Login tests - NO authentication
+        {
+            name: 'login',
+            testMatch: '**/login.spec.ts',
+            use: {
+                ...devices['Desktop Chrome'],
+                storageState: undefined,
+            },
+        },
+    ],
 });

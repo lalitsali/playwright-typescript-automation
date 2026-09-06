@@ -183,6 +183,10 @@ Install Playwright browsers
    ↓
 Execute Playwright tests
    ↓
+<<<<<<< HEAD
 Generate test report
 
 
+=======
+Generate test reports
+>>>>>>> cd1d79a (Implement reusable authentication and update test cases)
